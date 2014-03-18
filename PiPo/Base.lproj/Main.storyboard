@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--View Controller - Shifts-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
@@ -57,7 +57,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ts4-qj-9cw">
+                    <navigationItem key="navigationItem" title="Shifts" id="ts4-qj-9cw">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="X3w-b2-wnF">
                             <connections>
                                 <action selector="onNewShiftButtonPressed:" destination="vXZ-lx-hvc" id="Jbk-mb-wO3"/>
@@ -122,6 +122,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="kkh-Ep-Rpa" id="SIi-zK-VvN"/>
+                                    <outlet property="delegate" destination="kkh-Ep-Rpa" id="P7E-5m-47X"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total Time On:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfR-oI-qwg">
                                 <rect key="frame" x="20" y="100" width="111" height="21"/>

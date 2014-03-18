@@ -75,7 +75,6 @@
     return dateString;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Punch* newShift = [shifts objectAtIndex:indexPath.row];
@@ -93,10 +92,10 @@
     return shifts.count;
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-}
+//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+//    
+//}
 
 @end
