@@ -13,6 +13,9 @@
 @end
 
 @implementation DetailViewController
+{
+    __weak IBOutlet UITableView *timeTableView;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +29,5 @@
 {
     [super viewDidLoad];
 }
-
 
 @end

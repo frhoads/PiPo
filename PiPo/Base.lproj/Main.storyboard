@@ -21,7 +21,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="i3q-pd-2Dh" detailTextLabel="Yum-Xa-IGe" style="IBUITableViewCellStyleSubtitle" id="JnO-EV-v6G">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Shift Cell" textLabel="i3q-pd-2Dh" detailTextLabel="Yum-Xa-IGe" style="IBUITableViewCellStyleSubtitle" id="JnO-EV-v6G">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JnO-EV-v6G" id="2Xc-dT-2jg">
@@ -72,15 +72,15 @@
             </objects>
             <point key="canvasLocation" x="436" y="227"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="7Rh-dt-rNE">
             <objects>
-                <viewController id="kkh-Ep-Rpa" sceneMemberID="viewController">
+                <viewController id="kkh-Ep-Rpa" customClass="DetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XdO-24-c7Q"/>
                         <viewControllerLayoutGuide type="bottom" id="lac-dL-deh"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="TRv-oz-RwG" customClass="DetailViewContoller">
+                    <view key="view" contentMode="scaleToFill" id="TRv-oz-RwG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -152,6 +152,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ukk-iJ-KuA"/>
+                    <connections>
+                        <outlet property="timeTableView" destination="EdD-ew-6gW" id="JQN-o0-fqf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uDv-hk-is8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

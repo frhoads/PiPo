@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DetailViewController.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -16,6 +17,7 @@
 {
     __weak IBOutlet UITableView *shiftTableView;
     NSMutableArray* shifts;
+    NSMutableArray* times;
 }
 
 - (void)viewDidLoad
@@ -26,14 +28,31 @@
     {
         shifts = [[NSMutableArray alloc]init];
     }
+    
+    if (!times)
+    {
+        times = [[NSMutableArray alloc]init];
+    }
 }
 
 - (IBAction)onNewShiftButtonPressed:(id)sender
 {
-    [shifts addObject:[self getCurrentDate]];
-    
+    Punch* newShift = [[Punch alloc]init];
+    newShift.date = [self getCurrentDate];
+    newShift.time = [self getCurrentTime];
+    [shifts addObject:newShift];
     [shiftTableView reloadData];
-    NSLog(@"%@",shifts);
+    
+//    [shifts addObject:[self getCurrentDate]];
+//    [times addObject:[self getCurrentTime]];
+//    [shiftTableView reloadData];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ViewController* shiftsViewController = segue.destinationViewController;
+    NSIndexPath* indexPath = [shiftTableView indexPathForSelectedRow];
+    shiftsViewController.punch = shifts[indexPath.row];
 }
 
 - (NSString*)getCurrentTime
@@ -57,11 +76,13 @@
 }
 
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.textLabel.text = [shifts objectAtIndex:indexPath.row];
+    Punch* newShift = [shifts objectAtIndex:indexPath.row];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Shift Cell"];
+    
+    cell.textLabel.text = newShift.date;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", newShift.time];
     cell.textLabel.textColor = [UIColor blackColor];
     
     return cell;

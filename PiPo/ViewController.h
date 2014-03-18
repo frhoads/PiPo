@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Punch.h"
 
 @interface ViewController : UIViewController
+
+@property Punch* punch;
 
 @end
