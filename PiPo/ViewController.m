@@ -31,6 +31,7 @@
 - (IBAction)onNewShiftButtonPressed:(id)sender
 {
     [shifts addObject:[self getCurrentDate]];
+    
     [shiftTableView reloadData];
     NSLog(@"%@",shifts);
 }

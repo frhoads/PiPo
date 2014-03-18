@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A5BFAE018D89E9F00B1978D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5BFADF18D89E9F00B1978D /* DetailViewController.m */; };
 		5ACF996218D74E8E00BC2715 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ACF996118D74E8E00BC2715 /* Foundation.framework */; };
 		5ACF996418D74E8E00BC2715 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ACF996318D74E8E00BC2715 /* CoreGraphics.framework */; };
 		5ACF996618D74E8E00BC2715 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ACF996518D74E8E00BC2715 /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A5BFADE18D89E9F00B1978D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		5A5BFADF18D89E9F00B1978D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		5ACF995E18D74E8E00BC2715 /* PiPo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiPo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ACF996118D74E8E00BC2715 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5ACF996318D74E8E00BC2715 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -122,6 +125,8 @@
 				5ACF997318D74E8E00BC2715 /* Main.storyboard */,
 				5ACF997618D74E8E00BC2715 /* ViewController.h */,
 				5ACF997718D74E8E00BC2715 /* ViewController.m */,
+				5A5BFADE18D89E9F00B1978D /* DetailViewController.h */,
+				5A5BFADF18D89E9F00B1978D /* DetailViewController.m */,
 				5ACF997918D74E8E00BC2715 /* Images.xcassets */,
 				5ACF996818D74E8E00BC2715 /* Supporting Files */,
 			);
@@ -254,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5BFAE018D89E9F00B1978D /* DetailViewController.m in Sources */,
 				5ACF997818D74E8E00BC2715 /* ViewController.m in Sources */,
 				5ACF997218D74E8E00BC2715 /* AppDelegate.m in Sources */,
 				5AE57E2E18D772FA007A490A /* NewShiftViewController.m in Sources */,
