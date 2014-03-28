@@ -13,4 +13,5 @@
 @property NSString* time;
 @property NSString* date;
 @property UIImage* photo;
+
 @end

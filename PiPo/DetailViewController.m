@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "ViewController.h"
+#import "TimeAndDate.h"
 #import "Punch.h"
 
 @interface DetailViewController ()
@@ -16,9 +17,10 @@
 
 @implementation DetailViewController
 {
-    NSMutableArray* times;
     __weak IBOutlet UITableView *timeTableView;
+    NSMutableArray* times;
 }
+
 @synthesize punch;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,7 +34,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    times = [[NSMutableArray alloc]initWithObjects:punch, nil];
+    
+    if (!times)
+    {
+        times = [[NSMutableArray alloc]initWithObjects:punch, nil];
+    }
+    [timeTableView reloadData];
+}
+
+- (IBAction)onPunchButtonPressed:(id)sender
+{
+    Punch* newPunch = [[Punch alloc]init];
+    newPunch.date = [TimeAndDate getCurrentDate];
+    newPunch.time = [TimeAndDate getCurrentTime];
+    [times addObject:newPunch];
     [timeTableView reloadData];
 }
 
@@ -42,7 +57,7 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Detail Cell"];
     
     cell.textLabel.text = NewPunch.date;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", NewPunch.time];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Punch at: %@", NewPunch.time];
     cell.textLabel.textColor = [UIColor blackColor];
     
     return cell;

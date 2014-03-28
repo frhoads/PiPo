@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "DetailViewController.h"
+#import "TimeAndDate.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -17,7 +18,6 @@
 {
     __weak IBOutlet UITableView *shiftTableView;
     NSMutableArray* shifts;
-    NSMutableArray* times;
 }
 
 - (void)viewDidLoad
@@ -28,24 +28,15 @@
     {
         shifts = [[NSMutableArray alloc]init];
     }
-    
-    if (!times)
-    {
-        times = [[NSMutableArray alloc]init];
-    }
 }
 
 - (IBAction)onNewShiftButtonPressed:(id)sender
 {
     Punch* newShift = [[Punch alloc]init];
-    newShift.date = [self getCurrentDate];
-    newShift.time = [self getCurrentTime];
+    newShift.date = [TimeAndDate getCurrentDate];
+    newShift.time = [TimeAndDate getCurrentTime];
     [shifts addObject:newShift];
     [shiftTableView reloadData];
-    
-//    [shifts addObject:[self getCurrentDate]];
-//    [times addObject:[self getCurrentTime]];
-//    [shiftTableView reloadData];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -53,26 +44,6 @@
     ViewController* shiftsViewController = segue.destinationViewController;
     NSIndexPath* indexPath = [shiftTableView indexPathForSelectedRow];
     shiftsViewController.punch = shifts[indexPath.row];
-}
-
-- (NSString*)getCurrentTime
-{
-    NSDate* currentTime = [NSDate date];
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
-    NSString* timeString = [dateFormatter stringFromDate:currentTime];
-    
-    return timeString;
-}
-
-- (NSString*)getCurrentDate
-{
-    NSDate* currentDate = [NSDate date];
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    NSString* dateString = [dateFormatter stringFromDate:currentDate];
-    
-    return dateString;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -24,6 +24,7 @@
 		5ACF998B18D74E8E00BC2715 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5ACF998918D74E8E00BC2715 /* InfoPlist.strings */; };
 		5ACF998D18D74E8E00BC2715 /* PiPoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACF998C18D74E8E00BC2715 /* PiPoTests.m */; };
 		5AE57E2E18D772FA007A490A /* NewShiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57E2D18D772FA007A490A /* NewShiftViewController.m */; };
+		5AE8990A18E5D7B2000D7A4E /* TimeAndDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8990918E5D7B2000D7A4E /* TimeAndDate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		5ACF998C18D74E8E00BC2715 /* PiPoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiPoTests.m; sourceTree = "<group>"; };
 		5AE57E2C18D772FA007A490A /* NewShiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewShiftViewController.h; path = ../NewShiftViewController.h; sourceTree = "<group>"; };
 		5AE57E2D18D772FA007A490A /* NewShiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewShiftViewController.m; path = ../NewShiftViewController.m; sourceTree = "<group>"; };
+		5AE8990818E5D7B2000D7A4E /* TimeAndDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAndDate.h; sourceTree = "<group>"; };
+		5AE8990918E5D7B2000D7A4E /* TimeAndDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAndDate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,8 @@
 				5ACF997718D74E8E00BC2715 /* ViewController.m */,
 				5A5BFADE18D89E9F00B1978D /* DetailViewController.h */,
 				5A5BFADF18D89E9F00B1978D /* DetailViewController.m */,
+				5AE8990818E5D7B2000D7A4E /* TimeAndDate.h */,
+				5AE8990918E5D7B2000D7A4E /* TimeAndDate.m */,
 				5A5BFAE418D8D32600B1978D /* Punch.h */,
 				5A5BFAE518D8D32600B1978D /* Punch.m */,
 				5ACF997918D74E8E00BC2715 /* Images.xcassets */,
@@ -268,6 +273,7 @@
 				5A5BFAE018D89E9F00B1978D /* DetailViewController.m in Sources */,
 				5ACF997818D74E8E00BC2715 /* ViewController.m in Sources */,
 				5ACF997218D74E8E00BC2715 /* AppDelegate.m in Sources */,
+				5AE8990A18E5D7B2000D7A4E /* TimeAndDate.m in Sources */,
 				5AE57E2E18D772FA007A490A /* NewShiftViewController.m in Sources */,
 				5ACF996E18D74E8E00BC2715 /* main.m in Sources */,
 			);
