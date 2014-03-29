@@ -28,6 +28,13 @@
     {
         shifts = [[NSMutableArray alloc]init];
     }
+    
+    NSUserDefaults* loadShiftsDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableArray* loadShiftsArray = [loadShiftsDefaults objectForKey:@"Saved Shifts"];
+    
+    //loadShiftsArray =
+    
 }
 
 - (IBAction)onNewShiftButtonPressed:(id)sender
@@ -36,6 +43,12 @@
     newShift.date = [TimeAndDate getCurrentDate];
     newShift.time = [TimeAndDate getCurrentTime];
     [shifts addObject:newShift];
+    
+    NSArray* savedShiftsArray = shifts;
+    NSUserDefaults* savedShiftsDefaults = [NSUserDefaults standardUserDefaults];
+    [savedShiftsDefaults setObject:savedShiftsArray forKey:@"Saved Shifts"];
+    [savedShiftsDefaults synchronize];
+    
     [shiftTableView reloadData];
 }
 
@@ -53,7 +66,7 @@
     
     cell.textLabel.text = newShift.date;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", newShift.time];
-    cell.textLabel.textColor = [UIColor blackColor];
+    //cell.textLabel.textColor = [UIColor blackColor];
     
     return cell;
 }
