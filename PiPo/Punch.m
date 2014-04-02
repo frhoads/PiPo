@@ -14,4 +14,19 @@
 @synthesize time;
 @synthesize photo;
 
+- (void) encodeWithCoder:(NSCoder*)encoder
+{
+    [encoder encodeObject:self.date forKey:@"date"];
+    [encoder encodeObject:self.time forKey:@"time"];
+}
+
+- (id) initWithCoder:(NSCoder*)decoder
+{
+    if (self = [super init]) {
+        self.date = [decoder decodeObjectForKey:@"date"];
+        self.time = [decoder decodeObjectForKey:@"time"];
+    }
+    return self;
+}
+
 @end

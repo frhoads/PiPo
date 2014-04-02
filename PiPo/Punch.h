@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Punch : NSObject
+@interface Punch : NSObject <NSCoding>
 
 @property NSString* time;
 @property NSString* date;
 @property UIImage* photo;
+
+- (void) encodeWithCoder:(NSCoder*)encoder;
+
+- (id) initWithCoder:(NSCoder*)decoder;
 
 @end
