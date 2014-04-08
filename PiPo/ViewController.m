@@ -24,16 +24,16 @@
 {
     [super viewDidLoad];
     
-    if (!shifts)
-    {
-        shifts = [[NSMutableArray alloc]init];
-        NSLog(@"nothing in shifts array, count is %lu", (unsigned long)shifts.count);
-    }
-    else
-    {
-        [self loadsavedShifts];
+//    if (shifts)
+//    {
+        [self loadSavedShifts];
         NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
-    }
+//    }
+//    else
+//    {
+//        shifts = [[NSMutableArray alloc]init];
+//        NSLog(@"nothing in shifts array, count is %lu", (unsigned long)shifts.count);
+//    }
     
 //    NSUserDefaults* loadShiftsDefaults = [NSUserDefaults standardUserDefaults];
 //    NSMutableArray* loadShiftsArray = [loadShiftsDefaults objectForKey:@"SavedShifts"];
@@ -50,11 +50,8 @@
     [shifts addObject:newShift];
     [shiftTableView reloadData];
     
-    //[self saveShift:shifts key:@"savedShifts"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:shifts] forKey:@"SavedShifts"];
-    
-//    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject: shifts] forKey:@"SavedShifts"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)saveShift:(NSMutableArray*)newShift key:(NSString*)key
@@ -65,24 +62,24 @@
     [savedShift synchronize];
 }
 
--(NSMutableArray*)loadsavedShifts
+-(NSMutableArray*)loadSavedShifts
 {
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
     NSData *savedShifts = [currentDefaults objectForKey:@"SavedShifts"];
+    if (savedShifts != nil)
+    {
+        NSArray *oldArray = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
+        if (oldArray != nil)
+        {
+            shifts = [[NSMutableArray alloc] initWithArray:oldArray];
+        }
+        else
+        {
+            shifts = [[NSMutableArray alloc] init];
+        }
+    }
     shifts = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
     return shifts;
-//    if (savedShifts != nil)
-//    {
-//        NSArray *oldArray = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
-//        if (oldArray != nil)
-//        {
-//            shifts = [[NSMutableArray alloc] initWithArray:oldArray];
-//        }
-//        else
-//        {
-//            shifts = [[NSMutableArray alloc] init];
-//        }
-//    }
 }
 
 - (NSMutableArray*)loadShiftsWithKey:(NSString*)key

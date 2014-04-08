@@ -35,11 +35,28 @@
 {
     [super viewDidLoad];
     
-    if (!times)
-    {
-        times = [[NSMutableArray alloc]initWithObjects:punch, nil];
-    }
+    
+    [self loadSavedPunches];
+    
+    //times = [[NSMutableArray alloc] initWithObjects:punch, nil];
+    
     [timeTableView reloadData];
+}
+
+- (NSMutableArray*)loadSavedPunches
+{
+    NSUserDefaults *timesDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *savedTimes = [timesDefaults objectForKey:@"SavedTimes"];
+    if (savedTimes != nil)
+    {
+        NSArray *oldTimesArray = [NSKeyedUnarchiver unarchiveObjectWithData:savedTimes];
+        if (oldTimesArray != nil)
+        {
+            times = [[NSMutableArray alloc] initWithArray:oldTimesArray];
+        }
+    }
+    times = [NSKeyedUnarchiver unarchiveObjectWithData:savedTimes];
+    return times;
 }
 
 - (IBAction)onPunchButtonPressed:(id)sender
@@ -49,6 +66,9 @@
     newPunch.time = [TimeAndDate getCurrentTime];
     [times addObject:newPunch];
     [timeTableView reloadData];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:times] forKey:@"SavedTimes"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -22,6 +22,7 @@
 
 - (id) initWithCoder:(NSCoder*)decoder
 {
+    self = [[Punch alloc] init];
     if (self = [super init]) {
         self.date = [decoder decodeObjectForKey:@"date"];
         self.time = [decoder decodeObjectForKey:@"time"];
