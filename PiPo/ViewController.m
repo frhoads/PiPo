@@ -24,16 +24,22 @@
 {
     [super viewDidLoad];
     
-    if (!shifts)
-    {
-        shifts = [[NSMutableArray alloc]init];
-    }
+
+//    if (shifts)
+//    {
+        [self loadSavedShifts];
+        NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
+//    }
+//    else
+//    {
+//        shifts = [[NSMutableArray alloc]init];
+//        NSLog(@"nothing in shifts array, count is %lu", (unsigned long)shifts.count);
+//    }
     
-   // NSUserDefaults* loadShiftsDefaults = [NSUserDefaults standardUserDefaults];
-    
-   // NSMutableArray* loadShiftsArray = [loadShiftsDefaults objectForKey:@"Saved Shifts"];
-    
-    //loadShiftsArray =
+//    NSUserDefaults* loadShiftsDefaults = [NSUserDefaults standardUserDefaults];
+//    NSMutableArray* loadShiftsArray = [loadShiftsDefaults objectForKey:@"SavedShifts"];
+
+//    [[[NSUserDefaults standardUserDefaults] arrayForKey:@"YourKey"] mutableCopy];
     
 }
 
@@ -43,13 +49,46 @@
     newShift.date = [TimeAndDate getCurrentDate];
     newShift.time = [TimeAndDate getCurrentTime];
     [shifts addObject:newShift];
-    
-//    NSArray* savedShiftsArray = shifts;
-//    NSUserDefaults* savedShiftsDefaults = [NSUserDefaults standardUserDefaults];
-//    [savedShiftsDefaults setObject:savedShiftsArray forKey:@"Saved Shifts"];
-//    [savedShiftsDefaults synchronize];
-    
     [shiftTableView reloadData];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:shifts] forKey:@"SavedShifts"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)saveShift:(NSMutableArray*)newShift key:(NSString*)key
+{
+    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:@"savedShifts"];
+    NSUserDefaults *savedShift = [NSUserDefaults standardUserDefaults];
+    [savedShift setObject:encodedObject forKey:@"savedShifts"];
+    [savedShift synchronize];
+}
+
+-(NSMutableArray*)loadSavedShifts
+{
+    NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *savedShifts = [currentDefaults objectForKey:@"SavedShifts"];
+    if (savedShifts != nil)
+    {
+        NSArray *oldArray = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
+        if (oldArray != nil)
+        {
+            shifts = [[NSMutableArray alloc] initWithArray:oldArray];
+        }
+        else
+        {
+            shifts = [[NSMutableArray alloc] init];
+        }
+    }
+    shifts = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
+    return shifts;
+}
+
+- (NSMutableArray*)loadShiftsWithKey:(NSString*)key
+{
+    NSUserDefaults* defualts = [NSUserDefaults standardUserDefaults];
+    NSData *encodedObject = [defualts objectForKey:@"savedShifts"];
+    shifts = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
+    return shifts;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
