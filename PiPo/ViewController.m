@@ -29,9 +29,9 @@
         shifts = [[NSMutableArray alloc]init];
     }
     
-    NSUserDefaults* loadShiftsDefaults = [NSUserDefaults standardUserDefaults];
+   // NSUserDefaults* loadShiftsDefaults = [NSUserDefaults standardUserDefaults];
     
-    NSMutableArray* loadShiftsArray = [loadShiftsDefaults objectForKey:@"Saved Shifts"];
+   // NSMutableArray* loadShiftsArray = [loadShiftsDefaults objectForKey:@"Saved Shifts"];
     
     //loadShiftsArray =
     
@@ -44,10 +44,10 @@
     newShift.time = [TimeAndDate getCurrentTime];
     [shifts addObject:newShift];
     
-    NSArray* savedShiftsArray = shifts;
-    NSUserDefaults* savedShiftsDefaults = [NSUserDefaults standardUserDefaults];
-    [savedShiftsDefaults setObject:savedShiftsArray forKey:@"Saved Shifts"];
-    [savedShiftsDefaults synchronize];
+//    NSArray* savedShiftsArray = shifts;
+//    NSUserDefaults* savedShiftsDefaults = [NSUserDefaults standardUserDefaults];
+//    [savedShiftsDefaults setObject:savedShiftsArray forKey:@"Saved Shifts"];
+//    [savedShiftsDefaults synchronize];
     
     [shiftTableView reloadData];
 }
