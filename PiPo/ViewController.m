@@ -24,10 +24,13 @@
 {
     [super viewDidLoad];
     
+    
+    [self loadSavedShifts];
+    NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
+
 //    if (shifts)
 //    {
-        [self loadSavedShifts];
-        NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
+    
 //    }
 //    else
 //    {
@@ -52,6 +55,8 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:shifts] forKey:@"SavedShifts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
+
 }
 
 - (void)saveShift:(NSMutableArray*)newShift key:(NSString*)key
@@ -78,7 +83,11 @@
             shifts = [[NSMutableArray alloc] init];
         }
     }
-    shifts = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
+    if (shifts.count != 0)
+    {
+        shifts = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
+
+    }
     return shifts;
 }
 
@@ -104,7 +113,6 @@
     
     cell.textLabel.text = newShift.date;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", newShift.time];
-    //cell.textLabel.textColor = [UIColor blackColor];
     
     return cell;
 }
@@ -112,6 +120,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return shifts.count;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 //- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
