@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "ViewController.h"
 #import "TimeAndDate.h"
+#import "Punches.h"
 #import "Punch.h"
 
 @interface DetailViewController ()
@@ -34,7 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     
     [self loadSavedPunches];
     
@@ -88,5 +88,14 @@
     return times.count;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // deletion code here
+}
 
 @end

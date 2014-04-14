@@ -14,8 +14,8 @@
 @property NSString* date;
 @property UIImage* photo;
 
-- (void) encodeWithCoder:(NSCoder*)encoder;
-
-- (id) initWithCoder:(NSCoder*)decoder;
+//- (void) encodeWithCoder:(NSCoder*)encoder;
+//
+//- (id) initWithCoder:(NSCoder*)decoder;
 
 @end

@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "DetailViewController.h"
 #import "TimeAndDate.h"
+#import "Punch.h"
+#import "Punches.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -47,16 +49,21 @@
 
 - (IBAction)onNewShiftButtonPressed:(id)sender
 {
-    Punch* newShift = [[Punch alloc]init];
-    newShift.date = [TimeAndDate getCurrentDate];
-    newShift.time = [TimeAndDate getCurrentTime];
-    [shifts addObject:newShift];
+    Punch* newPunch = [[Punch alloc]init];
+    newPunch.date = [TimeAndDate getCurrentDate];
+    newPunch.time = [TimeAndDate getCurrentTime];
+    
+    Punches* newShift = [[Punches alloc]init];
+    newShift.punches = [[NSMutableArray alloc]init];
+    [newShift.punches addObject:newPunch];
+    
+    [shifts addObject:newShift.punches];
+    
     [shiftTableView reloadData];
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:shifts] forKey:@"SavedShifts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
-
 }
 
 - (void)saveShift:(NSMutableArray*)newShift key:(NSString*)key
@@ -78,24 +85,17 @@
         {
             shifts = [[NSMutableArray alloc] initWithArray:oldArray];
         }
-        else
-        {
-            shifts = [[NSMutableArray alloc] init];
-        }
     }
+    else if (savedShifts == nil)
+    {
+        
+        shifts = [[NSMutableArray alloc] init];
+    }
+
     if (shifts.count != 0)
     {
         shifts = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
-
     }
-    return shifts;
-}
-
-- (NSMutableArray*)loadShiftsWithKey:(NSString*)key
-{
-    NSUserDefaults* defualts = [NSUserDefaults standardUserDefaults];
-    NSData *encodedObject = [defualts objectForKey:@"savedShifts"];
-    shifts = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
     return shifts;
 }
 
@@ -103,17 +103,23 @@
 {
     ViewController* shiftsViewController = segue.destinationViewController;
     NSIndexPath* indexPath = [shiftTableView indexPathForSelectedRow];
-    shiftsViewController.punch = shifts[indexPath.row];
+    shiftsViewController.punches = shifts[indexPath.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Punch* newShift = [shifts objectAtIndex:indexPath.row];
+//    Punch* shift = [shifts objectAtIndex:indexPath.row];
+//    cell.textLabel.text = shift.date;
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", shift.time];
+    
+    Punches* shift = [Punches new];
+    shift.punches = [shifts objectAtIndex:indexPath.row];
+    Punch* punch = [shift.punches objectAtIndex:0];
+    
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Shift Cell"];
     
-    cell.textLabel.text = newShift.date;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", newShift.time];
-    
+    cell.textLabel.text = punch.date;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", punch.time];
     return cell;
 }
 
@@ -129,13 +135,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    // deletion code here
 }
-
-//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-//    
-//}
 
 @end
