@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Punches.h"
 #import "Punch.h"
 
 @interface DetailViewController : UIViewController
 
 @property Punch* punch;
+@property (nonatomic, strong) Punches* shiftPunches;
+@property NSMutableArray* shifts;
 
 @end

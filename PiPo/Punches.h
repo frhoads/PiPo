@@ -10,7 +10,7 @@
 
 @interface Punches : NSObject
 
-@property NSMutableArray* punches;
+@property (strong, nonatomic) NSMutableArray* punches;
 
 - (void) encodeWithCoder:(NSCoder*)encoder;
 

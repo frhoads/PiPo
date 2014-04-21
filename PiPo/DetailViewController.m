@@ -7,27 +7,28 @@
 //
 
 #import "DetailViewController.h"
-#import "ViewController.h"
 #import "TimeAndDate.h"
 #import "Punches.h"
 #import "Punch.h"
 
-@interface DetailViewController ()
+@interface DetailViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
 @implementation DetailViewController
 {
     __weak IBOutlet UITableView *timeTableView;
-    NSMutableArray* times;
+    __weak IBOutlet UILabel *timeOnLabel;
 }
 
 @synthesize punch;
+@synthesize shiftPunches;
+@synthesize shifts;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self){
     }
     return self;
 }
@@ -36,27 +37,7 @@
 {
     [super viewDidLoad];
     
-    [self loadSavedPunches];
-    
-    //times = [[NSMutableArray alloc] initWithObjects:punch, nil];
-    
     [timeTableView reloadData];
-}
-
-- (NSMutableArray*)loadSavedPunches
-{
-    NSUserDefaults *timesDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *savedTimes = [timesDefaults objectForKey:@"SavedTimes"];
-    if (savedTimes != nil)
-    {
-        NSArray *oldTimesArray = [NSKeyedUnarchiver unarchiveObjectWithData:savedTimes];
-        if (oldTimesArray != nil)
-        {
-            times = [[NSMutableArray alloc] initWithArray:oldTimesArray];
-        }
-    }
-    times = [NSKeyedUnarchiver unarchiveObjectWithData:savedTimes];
-    return times;
 }
 
 - (IBAction)onPunchButtonPressed:(id)sender
@@ -64,28 +45,26 @@
     Punch* newPunch = [[Punch alloc]init];
     newPunch.date = [TimeAndDate getCurrentDate];
     newPunch.time = [TimeAndDate getCurrentTime];
-    [times addObject:newPunch];
+    [self.shiftPunches.punches addObject:newPunch];
     [timeTableView reloadData];
     
-    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:times] forKey:@"SavedTimes"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:shifts] forKey:@"SavedShifts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Punch* NewPunch = [times objectAtIndex:indexPath.row];
+    Punch* newPunch = [self.shiftPunches.punches objectAtIndex:indexPath.row];
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Detail Cell"];
-    
-    cell.textLabel.text = NewPunch.date;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Punch at: %@", NewPunch.time];
-    cell.textLabel.textColor = [UIColor blackColor];
+    cell.textLabel.text = newPunch.date;
+    cell.detailTextLabel.text = newPunch.time;
     
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return times.count;
+    return self.shiftPunches.punches.count;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

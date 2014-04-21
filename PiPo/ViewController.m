@@ -19,32 +19,17 @@
 @implementation ViewController
 {
     __weak IBOutlet UITableView *shiftTableView;
-    NSMutableArray* shifts;
 }
+
+@synthesize punches;
+@synthesize shifts;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    
     [self loadSavedShifts];
     NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
-
-//    if (shifts)
-//    {
-    
-//    }
-//    else
-//    {
-//        shifts = [[NSMutableArray alloc]init];
-//        NSLog(@"nothing in shifts array, count is %lu", (unsigned long)shifts.count);
-//    }
-    
-//    NSUserDefaults* loadShiftsDefaults = [NSUserDefaults standardUserDefaults];
-//    NSMutableArray* loadShiftsArray = [loadShiftsDefaults objectForKey:@"SavedShifts"];
-
-//    [[[NSUserDefaults standardUserDefaults] arrayForKey:@"YourKey"] mutableCopy];
-    
 }
 
 - (IBAction)onNewShiftButtonPressed:(id)sender
@@ -66,14 +51,6 @@
     NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
 }
 
-- (void)saveShift:(NSMutableArray*)newShift key:(NSString*)key
-{
-    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:@"savedShifts"];
-    NSUserDefaults *savedShift = [NSUserDefaults standardUserDefaults];
-    [savedShift setObject:encodedObject forKey:@"savedShifts"];
-    [savedShift synchronize];
-}
-
 -(NSMutableArray*)loadSavedShifts
 {
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
@@ -88,7 +65,6 @@
     }
     else if (savedShifts == nil)
     {
-        
         shifts = [[NSMutableArray alloc] init];
     }
 
@@ -101,17 +77,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ViewController* shiftsViewController = segue.destinationViewController;
+    DetailViewController* dvc = [segue destinationViewController];
     NSIndexPath* indexPath = [shiftTableView indexPathForSelectedRow];
-    shiftsViewController.punches = shifts[indexPath.row];
+    dvc.shiftPunches = [Punches new];
+    dvc.shiftPunches.punches = shifts[indexPath.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    Punch* shift = [shifts objectAtIndex:indexPath.row];
-//    cell.textLabel.text = shift.date;
-//    cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", shift.time];
-    
     Punches* shift = [Punches new];
     shift.punches = [shifts objectAtIndex:indexPath.row];
     Punch* punch = [shift.punches objectAtIndex:0];

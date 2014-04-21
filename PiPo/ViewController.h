@@ -11,6 +11,8 @@
 
 @interface ViewController : UIViewController
 
-@property Punches* punches;
+@property (nonatomic, strong) Punches* punches;
+@property (strong, nonatomic) NSMutableArray* shifts;
+
 
 @end
