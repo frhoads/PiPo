@@ -10,8 +10,12 @@
 
 @interface TimeAndDate : NSObject
 
-+ (NSString*)getCurrentTime;
+//+ (NSString*)getCurrentTime;
+//
+//+ (NSString*)getCurrentDate;
 
-+ (NSString*)getCurrentDate;
++ (NSDate*)getCurrentTime;
+
++ (NSDate*)getCurrentDate;
 
 @end

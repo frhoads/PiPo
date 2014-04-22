@@ -11,23 +11,42 @@
 @implementation TimeAndDate
 
 
-+ (NSString*)getCurrentTime
+//+ (NSString*)getCurrentTime
+//{
+//    NSDate* currentTime = [NSDate date];
+//    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+//    [dateFormatter setDateFormat:@"hh:mm a"];
+//    NSString* timeString = [dateFormatter stringFromDate:currentTime];
+//    
+//    return timeString;
+//}
+//
+//+ (NSString*)getCurrentDate
+//{
+//    NSDate* currentDate = [NSDate date];
+//    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+//    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+//    NSString* dateString = [dateFormatter stringFromDate:currentDate];
+//    
+//    return dateString;
+//}
+
++ (NSDate*)getCurrentTime
 {
     NSDate* currentTime = [NSDate date];
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"hh:mm a"];
-    NSString* timeString = [dateFormatter stringFromDate:currentTime];
     
-    return timeString;
+    return currentTime;
 }
 
-+ (NSString*)getCurrentDate
++ (NSDate*)getCurrentDate
 {
     NSDate* currentDate = [NSDate date];
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    NSString* dateString = [dateFormatter stringFromDate:currentDate];
     
-    return dateString;
+    return currentDate;
 }
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "ViewController.h"
 #import "TimeAndDate.h"
 #import "Punches.h"
 #import "Punch.h"
@@ -36,8 +37,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        
     [timeTableView reloadData];
+    
+    [self caluclateTime];
 }
 
 - (IBAction)onPunchButtonPressed:(id)sender
@@ -50,16 +53,36 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:shifts] forKey:@"SavedShifts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Punch* newPunch = [self.shiftPunches.punches objectAtIndex:indexPath.row];
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Detail Cell"];
-    cell.textLabel.text = newPunch.date;
-    cell.detailTextLabel.text = newPunch.time;
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    NSString* dateString = [dateFormatter stringFromDate:newPunch.date];
+    cell.textLabel.text = dateString;
+    
+    NSDateFormatter* timeFormatter = [[NSDateFormatter alloc]init];
+    [timeFormatter setDateFormat:@"hh:mm a"];
+    NSString* timeString = [timeFormatter stringFromDate:newPunch.time];
+    cell.detailTextLabel.text = timeString;
     
     return cell;
+}
+
+- (void)caluclateTime
+{
+//    Punch* dateOne = [shiftPunches.punches objectAtIndex:0];
+//    Punch* dateTwo = [shiftPunches.punches objectAtIndex:1];
+//    
+//    double timeDifference = [dateOne.time timeIntervalSinceDate:dateTwo.time];
+//    
+//    NSLog(@"The time difference is %f seconds", timeDifference);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

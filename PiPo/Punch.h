@@ -10,8 +10,8 @@
 
 @interface Punch : NSObject <NSCoding>
 
-@property NSString* time;
-@property NSString* date;
+@property NSDate* time;
+@property NSDate* date;
 @property UIImage* photo;
 
 //- (void) encodeWithCoder:(NSCoder*)encoder;

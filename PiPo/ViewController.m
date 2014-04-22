@@ -12,7 +12,7 @@
 #import "Punch.h"
 #import "Punches.h"
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, UIApplicationDelegate>
 
 @end
 
@@ -31,6 +31,15 @@
     [self loadSavedShifts];
     NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
 }
+
+//-(BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+//{
+//    
+//    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+//    launchOptions = [NSDictionary dictionaryWithObjectsAndKeys:shifts, @"SavedShifts", nil];
+//    [defaults registerDefaults:launchOptions];
+//    return YES;
+//}
 
 - (IBAction)onNewShiftButtonPressed:(id)sender
 {
@@ -54,7 +63,8 @@
 -(NSMutableArray*)loadSavedShifts
 {
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *savedShifts = [currentDefaults objectForKey:@"SavedShifts"];
+    NSData *savedShifts = [NSData new];
+    savedShifts = [currentDefaults objectForKey:@"SavedShifts"];
     if (savedShifts != nil)
     {
         NSArray *oldArray = [NSKeyedUnarchiver unarchiveObjectWithData:savedShifts];
@@ -62,10 +72,10 @@
         {
             shifts = [[NSMutableArray alloc] initWithArray:oldArray];
         }
-    }
-    else if (savedShifts == nil)
-    {
-        shifts = [[NSMutableArray alloc] init];
+        else
+        {
+            shifts = [[NSMutableArray alloc] init];
+        }
     }
 
     if (shifts.count != 0)
@@ -81,6 +91,8 @@
     NSIndexPath* indexPath = [shiftTableView indexPathForSelectedRow];
     dvc.shiftPunches = [Punches new];
     dvc.shiftPunches.punches = shifts[indexPath.row];
+    dvc.shifts = [NSMutableArray new];
+    dvc.shifts = shifts;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,8 +103,16 @@
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Shift Cell"];
     
-    cell.textLabel.text = punch.date;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", punch.time];
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    NSString* dateString = [dateFormatter stringFromDate:punch.date];
+    cell.textLabel.text = dateString;
+    
+    NSDateFormatter* timeFormatter = [[NSDateFormatter alloc]init];
+    [timeFormatter setDateFormat:@"hh:mm a"];
+    NSString* timeString = [timeFormatter stringFromDate:punch.time];
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", timeString];
     return cell;
 }
 

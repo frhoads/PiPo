@@ -24,7 +24,6 @@
 		5ACF998318D74E8E00BC2715 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ACF996518D74E8E00BC2715 /* UIKit.framework */; };
 		5ACF998B18D74E8E00BC2715 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5ACF998918D74E8E00BC2715 /* InfoPlist.strings */; };
 		5ACF998D18D74E8E00BC2715 /* PiPoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACF998C18D74E8E00BC2715 /* PiPoTests.m */; };
-		5AE57E2E18D772FA007A490A /* NewShiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57E2D18D772FA007A490A /* NewShiftViewController.m */; };
 		5AE8990A18E5D7B2000D7A4E /* TimeAndDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8990918E5D7B2000D7A4E /* TimeAndDate.m */; };
 /* End PBXBuildFile section */
 
@@ -64,8 +63,6 @@
 		5ACF998818D74E8E00BC2715 /* PiPoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PiPoTests-Info.plist"; sourceTree = "<group>"; };
 		5ACF998A18D74E8E00BC2715 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5ACF998C18D74E8E00BC2715 /* PiPoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiPoTests.m; sourceTree = "<group>"; };
-		5AE57E2C18D772FA007A490A /* NewShiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewShiftViewController.h; path = ../NewShiftViewController.h; sourceTree = "<group>"; };
-		5AE57E2D18D772FA007A490A /* NewShiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewShiftViewController.m; path = ../NewShiftViewController.m; sourceTree = "<group>"; };
 		5AE8990818E5D7B2000D7A4E /* TimeAndDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAndDate.h; sourceTree = "<group>"; };
 		5AE8990918E5D7B2000D7A4E /* TimeAndDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAndDate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,8 +124,6 @@
 		5ACF996718D74E8E00BC2715 /* PiPo */ = {
 			isa = PBXGroup;
 			children = (
-				5AE57E2C18D772FA007A490A /* NewShiftViewController.h */,
-				5AE57E2D18D772FA007A490A /* NewShiftViewController.m */,
 				5ACF997018D74E8E00BC2715 /* AppDelegate.h */,
 				5ACF997118D74E8E00BC2715 /* AppDelegate.m */,
 				5ACF997318D74E8E00BC2715 /* Main.storyboard */,
@@ -280,7 +275,6 @@
 				5ACF997818D74E8E00BC2715 /* ViewController.m in Sources */,
 				5ACF997218D74E8E00BC2715 /* AppDelegate.m in Sources */,
 				5AE8990A18E5D7B2000D7A4E /* TimeAndDate.m in Sources */,
-				5AE57E2E18D772FA007A490A /* NewShiftViewController.m in Sources */,
 				5ACF996E18D74E8E00BC2715 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
