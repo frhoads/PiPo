@@ -12,7 +12,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    NSUserDefaults* appDefaults = [NSUserDefaults standardUserDefaults];
+    NSData* savedShifts = [NSData new];
+    launchOptions = [NSDictionary dictionaryWithObjectsAndKeys:savedShifts, @"SavedShifts", nil];
+    [appDefaults registerDefaults:launchOptions];
     return YES;
 }
 							

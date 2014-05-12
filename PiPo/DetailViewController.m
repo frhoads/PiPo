@@ -20,6 +20,7 @@
 {
     __weak IBOutlet UITableView *timeTableView;
     __weak IBOutlet UILabel *timeOnLabel;
+    __weak IBOutlet UILabel *timeOffLabel;
 }
 
 @synthesize punch;
@@ -46,15 +47,15 @@
 - (IBAction)onPunchButtonPressed:(id)sender
 {
     Punch* newPunch = [[Punch alloc]init];
-    newPunch.date = [TimeAndDate getCurrentDate];
-    newPunch.time = [TimeAndDate getCurrentTime];
+    newPunch.dateTime = [TimeAndDate getDateTime];
     [self.shiftPunches.punches addObject:newPunch];
     [timeTableView reloadData];
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:shifts] forKey:@"SavedShifts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [self caluclateTime];
+    
     NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,12 +65,12 @@
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    NSString* dateString = [dateFormatter stringFromDate:newPunch.date];
+    NSString* dateString = [dateFormatter stringFromDate:newPunch.dateTime];
     cell.textLabel.text = dateString;
     
     NSDateFormatter* timeFormatter = [[NSDateFormatter alloc]init];
     [timeFormatter setDateFormat:@"hh:mm a"];
-    NSString* timeString = [timeFormatter stringFromDate:newPunch.time];
+    NSString* timeString = [timeFormatter stringFromDate:newPunch.dateTime];
     cell.detailTextLabel.text = timeString;
     
     return cell;
@@ -77,12 +78,33 @@
 
 - (void)caluclateTime
 {
-//    Punch* dateOne = [shiftPunches.punches objectAtIndex:0];
-//    Punch* dateTwo = [shiftPunches.punches objectAtIndex:1];
-//    
-//    double timeDifference = [dateOne.time timeIntervalSinceDate:dateTwo.time];
-//    
-//    NSLog(@"The time difference is %f seconds", timeDifference);
+    if (shiftPunches.punches.count > 1)
+    {
+        double timeOnInSeconds;
+        for (int x = 1; x < shiftPunches.punches.count; x+=2)
+        {
+            double shiftDiffrenceInSeconds;
+            shiftDiffrenceInSeconds = [[[shiftPunches.punches objectAtIndex:x] dateTime] timeIntervalSinceDate:[[shiftPunches.punches objectAtIndex:(x - 1)] dateTime]];
+            
+            timeOnInSeconds += shiftDiffrenceInSeconds;
+        }
+        double timeOnInHours = timeOnInSeconds/60/60;
+        timeOnLabel.text = [NSString stringWithFormat:@"%f", timeOnInHours];
+    }
+    
+    if (shiftPunches.punches.count > 2)
+    {
+        double timeOffInSeconds;
+        for (int x = 2; x < shiftPunches.punches.count; x+=2)
+        {
+            double shiftDiffrenceInSeconds;
+            shiftDiffrenceInSeconds = [[[shiftPunches.punches objectAtIndex:x] dateTime] timeIntervalSinceDate:[[shiftPunches.punches objectAtIndex:(x - 1)] dateTime]];
+            
+            timeOffInSeconds += shiftDiffrenceInSeconds;
+        }
+        double timeOffInHours = timeOffInSeconds/60/60;
+        timeOffLabel.text = [NSString stringWithFormat:@"%f", timeOffInHours];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

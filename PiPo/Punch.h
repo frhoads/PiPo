@@ -10,12 +10,7 @@
 
 @interface Punch : NSObject <NSCoding>
 
-@property NSDate* time;
-@property NSDate* date;
+@property NSDate* dateTime;
 @property UIImage* photo;
-
-//- (void) encodeWithCoder:(NSCoder*)encoder;
-//
-//- (id) initWithCoder:(NSCoder*)decoder;
 
 @end

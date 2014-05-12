@@ -14,8 +14,6 @@
 //
 //+ (NSString*)getCurrentDate;
 
-+ (NSDate*)getCurrentTime;
-
-+ (NSDate*)getCurrentDate;
++ (NSDate*)getDateTime;
 
 @end

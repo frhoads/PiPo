@@ -12,7 +12,7 @@
 #import "Punch.h"
 #import "Punches.h"
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource, UIApplicationDelegate>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
@@ -32,20 +32,11 @@
     NSLog(@"Items in shifts array: %lu", (unsigned long)shifts.count);
 }
 
-//-(BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-//{
-//    
-//    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-//    launchOptions = [NSDictionary dictionaryWithObjectsAndKeys:shifts, @"SavedShifts", nil];
-//    [defaults registerDefaults:launchOptions];
-//    return YES;
-//}
-
 - (IBAction)onNewShiftButtonPressed:(id)sender
 {
     Punch* newPunch = [[Punch alloc]init];
-    newPunch.date = [TimeAndDate getCurrentDate];
-    newPunch.time = [TimeAndDate getCurrentTime];
+    newPunch.dateTime = [TimeAndDate getDateTime];
+    //newPunch.time = [TimeAndDate getCurrentTime];
     
     Punches* newShift = [[Punches alloc]init];
     newShift.punches = [[NSMutableArray alloc]init];
@@ -105,12 +96,12 @@
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    NSString* dateString = [dateFormatter stringFromDate:punch.date];
+    NSString* dateString = [dateFormatter stringFromDate:punch.dateTime];
     cell.textLabel.text = dateString;
     
     NSDateFormatter* timeFormatter = [[NSDateFormatter alloc]init];
     [timeFormatter setDateFormat:@"hh:mm a"];
-    NSString* timeString = [timeFormatter stringFromDate:punch.time];
+    NSString* timeString = [timeFormatter stringFromDate:punch.dateTime];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Time in: %@", timeString];
     return cell;
